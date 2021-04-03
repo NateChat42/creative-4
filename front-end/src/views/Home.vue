@@ -43,11 +43,9 @@
 
 <script>
 import axios from 'axios';
-// import { Swatches } from 'vue-color'
 export default {
   name: 'Home',
   components: {
-    // 'swatches-picker': Swatches
   },
   data() {
     return {
