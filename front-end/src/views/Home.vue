@@ -14,7 +14,7 @@
   <p></p>
   </div>
   <br />
-  <button v-if="character" @click=editCharacter(character)>Edit</button>  <button v-if="character" @click=deleteCharacter(character)>Delete</button>
+  <button v-if="character" @click=editCharacter(character)>Edit Character</button>  <button v-if="character" @click=deleteCharacter(character)>Delete Character</button>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
