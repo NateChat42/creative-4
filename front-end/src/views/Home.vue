@@ -87,10 +87,10 @@ export default {
     async getCharacters() {
       try {
         const response = await axios.get("/api/characters");
-        console.log(response);
+        // console.log(response);
         this.characters = response.data;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     selectCharacter(character) {
@@ -113,7 +113,7 @@ export default {
         this.characterClass = "";
         this.getCharacters();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     async deleteCharacter(character) {
@@ -125,7 +125,7 @@ export default {
         this.characterClass = "";
         this.getCharacters();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     async getQuests() {
@@ -133,7 +133,7 @@ export default {
         const response = await axios.get(`/api/characters/${this.character._id}/quests`);
         this.quests = response.data;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     async addQuest() {
@@ -149,7 +149,7 @@ export default {
         this.reward = "";
         this.getQuests();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     async completeQuest(quest) {
@@ -162,7 +162,7 @@ export default {
         });
         this.getQuests();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     async deleteQuest(quest) {
@@ -170,7 +170,7 @@ export default {
         await axios.delete(`/api/characters/${this.character._id}/quests/${quest._id}`);
         this.getQuests();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
     active(character) {

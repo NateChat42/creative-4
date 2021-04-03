@@ -41,7 +41,7 @@ export default {
         this.characterRace = "";
         this.$alert("Your character has been created!\nNow create some quests for them!");
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     },
   }
