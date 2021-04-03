@@ -13,8 +13,9 @@
   <h4>Race: </h4><input v-model="characterRace"/>
   <p></p>
   </div>
-  <br />
+  <div class="buttons">
   <button v-if="character" @click=editCharacter(character)>Edit Character</button>  <button v-if="character" @click=deleteCharacter(character)>Delete Character</button>
+  </div>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
@@ -195,39 +196,6 @@ export default {
     active(character) {
       return (this.character && character._id === this.character._id);
     },
-    /*darkColor(color) {
-      return (this.lightOrDark(color) === 'dark');
-    },
-    lightOrDark(color) {
-      let hex = color;
-      if (typeof color === 'object' && color !== null)
-        hex = color.hex;
-
-    // Convert it to RGB: http://gist.github.com/983661
-      let rgb = +("0x" + hex.slice(1).replace( 
-      hex.length < 5 && /./g, '$&$&'));
-
-      const r = rgb >> 16;
-      const g = rgb >> 8 & 255;
-      const b = rgb & 255;
-      
-      // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
-      const hsp = Math.sqrt(
-      0.299 * (r * r) +
-      0.587 * (g * g) +
-      0.114 * (b * b)
-      );
-
-      // Using the HSP value, determine whether the color is light or dark
-      if (hsp>127.5) {
-
-          return 'light';
-      } 
-      else {
-
-          return 'dark';
-      }
-    }*/
   }
 }
 </script>
@@ -276,15 +244,14 @@ input[type=text] {
   font-size: 1em;
 }
 
-.vc-swatches {
-  margin-bottom: 20px;
-}
-
 #characters {
   margin-bottom: 20px;
 }
 
-
+.buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 button {
   font-family: 'Arvo';
