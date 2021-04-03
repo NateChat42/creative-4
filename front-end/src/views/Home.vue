@@ -1,9 +1,9 @@
 <template>
 <div>
-  <h1>Manage Your Characters' Quests</h1>
+  <h1>Manage Your Characters</h1>
   <h1 class="header" v-show="characters.length === 0">You have no characters! Try creating one.</h1>
   <div id="characters">
-    <button :style="{backgroundColor: character.color }" :class="{ selected: active(character)}" v-for="character in characters" :key=character.id @click=selectCharacter(character)>{{character.name}}</button>
+    <button :class="{ selected: active(character)}" v-for="character in characters" :key=character.id @click=selectCharacter(character)>{{character.name}}</button>
   </div>
   <div class="form" v-if="character">
   <h4>Name: </h4><input v-model="characterName"/>
@@ -16,6 +16,7 @@
   <div class="buttons">
   <button v-if="character" @click=editCharacter(character)>Edit Character</button>  <button v-if="character" @click=deleteCharacter(character)>Delete Character</button>
   </div>
+  <h1 v-if="character">Manage {{character.name}}'s Quests</h1>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
@@ -24,14 +25,14 @@
       <input type="text" v-model="reward" placeholder="Reward">
       <button type="submit">Add a Quest</button>
     </form>
-    <div class="controls">
+    <!-- <div class="controls">
       <button @click="showAll()">Show All</button>
       <button @click="showActive()">Show Active</button>
       <button @click="showCompleted()">Show Completed</button>
       <button @click="deleteCompleted()">Delete Completed</button>
-    </div>
+    </div> -->
     <ul>
-      <li v-for="quest in filteredQuests" :key="quest.id">
+      <li v-for="quest in quests" :key="quest.id">
         <label :class="{ quest: true, completed: quest.completed }">
           Title: {{ quest.title }} <br />
           Description: {{ quest.description }}<br />
@@ -160,9 +161,9 @@ export default {
     async completeQuest(quest) {
       try {
         axios.put(`/api/characters/${this.character._id}/quests/${quest._id}`, {
-          title: this.title,
-          description: this.description,
-          reward: this.reward,
+          title: quest.title,
+          description: quest.description,
+          reward: quest.reward,
           completed: !quest.completed,
         });
         this.getQuests();
@@ -254,10 +255,10 @@ input[type=text] {
 }
 
 button {
-  font-family: 'Arvo';
   font-size: 1em;
   border: none;
-  background-color: #bbb;
+  background-color: white;
+  color:#1c03ac;
   padding: 5px 10px;
 }
 

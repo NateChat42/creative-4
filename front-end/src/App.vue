@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <div id="menu">
-      <div id="brand">
-        <router-link to="/">
-          <h2>Manage Character Quests</h2>
-        </router-link>
-      </div>
       <router-link to="/tavern">
         <h2>Create Characters</h2>
+      </router-link>
+      <router-link to="/">
+        <h2>Manage Character Quests</h2>
       </router-link>
     </div>
     <router-view />
@@ -17,30 +15,26 @@
 <style>
 * {
   box-sizing: border-box;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 body {
   margin: 50px 100px;
-  background: #555555;
+  background: #017fb9;
 }
 
 #menu {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 5px;
-  grid-template-areas: "none brand side";
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 #menu a {
-  color: #d85701;
+  color: #1c03ac;
 }
 
 #brand {
   grid-area: brand;
-  display: flex-start;
-  justify-content: center;
+  display: flex;
+  justify-content: flex-start;
 }
 
 #brand img {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to the Tavern!</h1>
+    <h1>Welcome to the RPG Character Creator!</h1>
     <h2>Create a character for your next campaign!</h2>
     <form @submit.prevent="addCharacter">
       <input type="text" v-model="characterName" placeholder="Name" />
@@ -47,3 +47,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+button {
+  font-size: 1em;
+  border: none;
+  background-color: white;
+  color:#1c03ac;
+  padding: 5px 10px;
+}
+</style>
