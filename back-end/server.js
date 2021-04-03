@@ -53,6 +53,20 @@ app.get('/api/characters', async (req, res) => {
   }
 });
 
+app.put('/api/characters/:characterID', async (req, res) => {
+  try {
+    let character = await Character.findOne({_id: req.params.characterID});
+    character.name = req.body.name;
+    character.class = req.body.class;
+    character.race = req.body.race;
+    await character.save();
+    res.send(character);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+})
+
 app.delete('/api/characters/:characterID/', async (req, res) => {
   try {
       let character = await Character.findOne({_id:req.params.characterID});

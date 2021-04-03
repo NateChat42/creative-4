@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Welcome to the Tavern!</h1>
+    <h2>Create a character for your next campaign!</h2>
     <form @submit.prevent="addCharacter">
       <input type="text" v-model="characterName" placeholder="Name" />
       <br />

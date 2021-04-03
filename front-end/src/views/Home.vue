@@ -4,6 +4,15 @@
   <div id="characters">
     <button :style="{backgroundColor: character.color }" :class="{ selected: active(character)}" v-for="character in characters" :key=character.id @click=selectCharacter(character)>{{character.name}}</button>
   </div>
+  <div class="form" v-if="character">
+  <h4>Name: </h4><input v-model="characterName"/>
+  <p></p>
+  <h4>Class: </h4><input v-model="characterClass"/>
+  <p></p>
+  <h4>Race: </h4><input v-model="characterRace"/>
+  <p></p>
+  </div>
+  <button v-if="character" @click=editCharacter(character)>Edit</button>  <button v-if="character" @click=deleteCharacter(character)>Delete</button>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
@@ -44,6 +53,9 @@ export default {
     return {
       characters: [],
       character: null,
+      characterName: '',
+      characterRace: '',
+      characterClass: '',
       color: "#0F0",
       quests: [],
       title: '',
@@ -85,7 +97,38 @@ export default {
     },
     selectCharacter(character) {
       this.character = character;
+      this.characterName = character.name;
+      this.characterRace = character.race;
+      this.characterClass = character.class;
       this.getQuests();
+    },
+    async editCharacter(character) {
+      try {
+        await axios.put("/api/characters/" + character._id, {
+          name: this.characterName,
+          class: this.characterClass,
+          race: this.characterRace, 
+        });
+        this.character = null;
+        this.characterName = "";
+        this.characterRace = "";
+        this.characterClass = "";
+        this.getCharacters();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteCharacter(character) {
+      try {
+        await axios.delete(`/api/characters/${character._id}`);
+        this.character = null;
+        this.characterName = "";
+        this.characterRace = "";
+        this.characterClass = "";
+        this.getCharacters();
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getQuests() {
       try {
