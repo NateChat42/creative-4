@@ -25,12 +25,6 @@
       <input type="text" v-model="reward" placeholder="Reward">
       <button type="submit">Add a Quest</button>
     </form>
-    <!-- <div class="controls">
-      <button @click="showAll()">Show All</button>
-      <button @click="showActive()">Show Active</button>
-      <button @click="showCompleted()">Show Completed</button>
-      <button @click="deleteCompleted()">Delete Completed</button>
-    </div> -->
     <ul>
       <li v-for="quest in quests" :key="quest.id">
         <label :class="{ quest: true, completed: quest.completed }">
@@ -178,21 +172,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    showAll() {
-      this.show = 'all';
-    },
-    showActive() {
-      this.show = 'active';
-    },
-    showCompleted() {
-      this.show = 'completed';
-    },
-    deleteCompleted() {
-      this.quests.forEach(quest => {
-        if (quest.completed)
-          this.deleteQuest(quest);
-      });
     },
     active(character) {
       return (this.character && character._id === this.character._id);
