@@ -1,20 +1,13 @@
 <template>
 <div>
-  <h1>Characters</h1>
+  <h1>Manage Your Characters' Quests</h1>
   <div id="characters">
     <button :style="{backgroundColor: character.color }" :class="{ selected: active(character)}" v-for="character in characters" :key=character.id @click=selectCharacter(character)>{{character.name}}</button>
   </div>
-  <form @submit.prevent="addCharacter">
-      <input type="text" v-model="characterName" placeholder="Name">
-      <input type="text" v-model="characterClass" placeholder="Class">
-      <input type="text" v-model="characterRace" placeholder="Race">
-      <!-- <swatches-picker v-model="color"/> -->
-      <button type="submit">Add a Character</button>
-    </form>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
-      <input type="text" v-model="text">
+      <input type="text" v-model="title">
       <button type="submit">Add a Quest</button>
     </form>
     <div class="controls">
@@ -27,8 +20,8 @@
       <li v-for="quest in filteredQuests" :key="quest.id">
         <label :class="{ quest: true, completed: quest.completed }">
           {{ quest.title }}
-          {{ quest.description }}
-          {{ quest.reward }}
+          <!-- {{ quest.description }}
+          {{ quest.reward }} -->
           <input type="checkbox" v-model="quest.completed" @click="completeQuest(quest)" />
           <span class="checkmark"></span>
         </label>
@@ -51,9 +44,6 @@ export default {
     return {
       characters: [],
       character: null,
-      characterName: '',
-      characterClass: '',
-      characterRace: '',
       color: "#0F0",
       quests: [],
       title: '',
@@ -84,18 +74,6 @@ export default {
     },
   },
   methods: {
-    async addCharacter() {
-      try {
-        await axios.post("/api/characters", {
-          name: this.characterName,
-          class: this.characterClass,
-          race: this.characterRace,
-        });
-        await this.getCharacters();
-      } catch (error) {
-        console.log(error);
-      }
-    },
     async getCharacters() {
       try {
         const response = await axios.get("/api/characters");

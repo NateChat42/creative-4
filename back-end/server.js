@@ -53,6 +53,20 @@ app.get('/api/characters', async (req, res) => {
   }
 });
 
+app.delete('/api/characters/:characterID/', async (req, res) => {
+  try {
+      let character = await Character.findOne({_id:req.params.characterID});
+      if (!character) {
+          res.send(404);
+          return;
+      }
+      await character.delete();
+      res.sendStatus(200);
+  } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+  }
+});
 
 const questSchema = new mongoose.Schema({
   character: {
