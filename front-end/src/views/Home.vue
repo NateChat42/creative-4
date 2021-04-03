@@ -1,6 +1,7 @@
 <template>
 <div>
   <h1>Manage Your Characters' Quests</h1>
+  <h1 class="header" v-show="characters.length === 0">You have no characters! Try creating one.</h1>
   <div id="characters">
     <button :style="{backgroundColor: character.color }" :class="{ selected: active(character)}" v-for="character in characters" :key=character.id @click=selectCharacter(character)>{{character.name}}</button>
   </div>
@@ -12,11 +13,14 @@
   <h4>Race: </h4><input v-model="characterRace"/>
   <p></p>
   </div>
+  <br />
   <button v-if="character" @click=editCharacter(character)>Edit</button>  <button v-if="character" @click=deleteCharacter(character)>Delete</button>
   <div class="todoQuests" v-if="character">
     <p v-show="activeQuests.length === 0">You are done with all your quests! Good job!</p>
     <form @submit.prevent="addQuest">
-      <input type="text" v-model="title">
+      <input type="text" v-model="title" placeholder="Title">
+      <input type="text" v-model="description" placeholder="Description">
+      <input type="text" v-model="reward" placeholder="Reward">
       <button type="submit">Add a Quest</button>
     </form>
     <div class="controls">
@@ -28,9 +32,9 @@
     <ul>
       <li v-for="quest in filteredQuests" :key="quest.id">
         <label :class="{ quest: true, completed: quest.completed }">
-          {{ quest.title }}
-          <!-- {{ quest.description }}
-          {{ quest.reward }} -->
+          Title: {{ quest.title }} <br />
+          Description: {{ quest.description }}<br />
+          Reward: {{ quest.reward }}
           <input type="checkbox" v-model="quest.completed" @click="completeQuest(quest)" />
           <span class="checkmark"></span>
         </label>
@@ -144,7 +148,9 @@ export default {
           reward: this.reward,
           completed: false
         });
-        this.text = "";
+        this.title = "";
+        this.description = "";
+        this.reward = "";
         this.getQuests();
       } catch (error) {
         console.log(error);

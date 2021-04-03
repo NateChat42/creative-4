@@ -17,6 +17,7 @@
 <style>
 * {
   box-sizing: border-box;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 body {
